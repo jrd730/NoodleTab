@@ -1,19 +1,19 @@
-#NoodleTab
+# NoodleTab
 A NodeJS module for making guitar and bass tabs using a shorthand notation.
 
-##API
+## API
 
-###NoodleTab(config)
+### NoodleTab(config)
 Constructs a new instance with an optional configuration object.
 
-###makeTab(startPhrase, phrases)
+### makeTab(startPhrase, phrases)
 Parses a set of phrases and returns a string containing the tab starting from the specified start phrase.
 
-- ####Parameters
+- #### Parameters
     - startPhrase: A string containing the name of a phrase to start from.
     - phrases: An object where each key is the id of a phrase and each value is a string representing the phrase in shorthand notation.
 
-##Grammar
+## Grammar
 NoodleTab uses the following symbols in its phrase notation.
 
 * <int> 
