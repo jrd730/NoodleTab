@@ -28,7 +28,7 @@ NoodleTab uses the following symbols in its phrase notation.
 * <int>#
     Specifies a chord using the digits of the integer as frets ending on the highest string.
 
-* -
+* \-
     Specifies a rest at the current column which creates space between notes.
 
 * |
@@ -41,12 +41,12 @@ NoodleTab uses the following symbols in its phrase notation.
     Specifies a phrase with the given id. Phrases cannot contain circular references.
 
 * [<string>]
-    Specifie s a bracketed sequence containing combinations of the aforementioned symbols.
+    Specifies a bracketed sequence containing combinations of the aforementioned symbols.
 
 * *<int>
     Can be placed immediately after a bracketed sequence to repeat it the given number of times.
 
-* + 
+* \+ 
     Can be place between two bracketed sequences to have them be superimposed.
 
 
