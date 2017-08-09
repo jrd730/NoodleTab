@@ -1,0 +1,15 @@
+{
+  "name": "noodletab",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "pegjs ./noodle-parser.pegjs",
+    "test": "node ./test/parser-tests.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
