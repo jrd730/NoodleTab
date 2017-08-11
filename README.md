@@ -49,4 +49,9 @@ NoodleTab uses the following symbols in its phrase notation.
 * \+ 
     Can be place between two bracketed sequences to have them be superimposed.
 
+## Todo
+* Finish todo list
+
+## License
+MIT
 
