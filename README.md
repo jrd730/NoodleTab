@@ -1,10 +1,22 @@
 # NoodleTab
-A NodeJS module for making guitar and bass tabs using a shorthand notation.
+A Javascript module for making guitar and bass tabs using a shorthand notation.
+
+## Building
+This step is only necessary if you want to change the grammar.
+To rebuild the parser make sure you have Pegjs installed.
+ ```
+ npm install -g pegjs
+ ```
+Then run Pegjs with the updated grammar file as the input.
+```
+pegjs ./src/noodle-parser.pegjs
+```
+This should create a new file ./src/noodle-parser.js
 
 ## API
 
 ### NoodleTab(config)
-Constructs a new instance with an optional configuration object.
+Constructs a new instance with an optional configuration object.  
 
 ### makeTab(startPhrase, phrases)
 Parses a set of phrases and returns a string containing the tab starting from the specified start phrase.
@@ -14,43 +26,27 @@ Parses a set of phrases and returns a string containing the tab starting from th
     - phrases: An object where each key is the id of a phrase and each value is a string representing the phrase in shorthand notation.
 
 ## Grammar
-NoodleTab uses the following symbols in its phrase notation.
+NoodleTab uses the following symbols in its phrase notation. Symbols can be separated with spaces, tabs, or newlines.
 
-* \<int> 
-    Specifies a fret to be played on the current string
-
-* \<int>:
-    Changes the current string, must be within the range [1 - StringCount] inclusive.
-
-* \#\<int>
-    Specifies a chord using the digits of the integer as frets starting on the lowest string. 
-
-* \<int>\#
-    Specifies a chord using the digits of the integer as frets ending on the highest string.
-
-* \-
-    Specifies a rest at the current column which creates space between notes.
-
-* \|
-    Specifies a measure bar to be printed at the current column
-
-* \, 
-    Starts a new block below the current one.
-
-* \@\<string>
-    Specifies a phrase with the given id. Phrases cannot contain circular references.
-
-* \[\<string>]
-    Specifies a bracketed sequence containing combinations of the aforementioned symbols.
-
-* \*\<int>
-    Can be placed immediately after a bracketed sequence to repeat it the given number of times.
-
-* \+ 
-    Can be place between two bracketed sequences to have them be superimposed.
+Symbol|Description
+------|-----------
+_\<int>_|Specifies a fret to be played on the current string
+_\<int>_:|Changes the current string, must be within the range [1 - StringCount] inclusive.
+\#_\<int>_|Specifies a chord using the digits of the integer as frets starting on the lowest string. 
+_\<int>_\#|Specifies a chord using the digits of the integer as frets ending on the highest string.
+\-|Specifies a rest at the current column which creates space between notes.
+\||Specifies a measure bar to be printed at the current column
+\,|Starts a new block below the current one.
+\@_\<string>_|Specifies a phrase with the given id. Phrases cannot contain circular references.
+\[_\<string>_]|Specifies a bracketed sequence containing combinations of the aforementioned symbols.
+\*_\<int>_|Can be placed immediately after a bracketed sequence to repeat it the given number of times.
+\+|Can be place between two bracketed sequences to have them be superimposed.
 
 ## Todo
-* Finish todo list
+* add operators for transposition
+* add support for technique symbols (hammer-ons, slides, pull-offs)
+* add support for annotations (lyrics, chord names)
+* output to svg or canvas
 
 ## License
 MIT
