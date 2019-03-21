@@ -1,5 +1,5 @@
 # NoodleTab
-A Javascript module for making guitar and bass tabs using a shorthand notation.
+A Javascript module for making guitar and bass tabs using a shorthand notation.  
 
 ## Building
 This step is only necessary if you want to change the grammar.
