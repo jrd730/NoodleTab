@@ -24,6 +24,7 @@ listItem
     / chordHigh
     / chordLow
     / stringChange
+    / technique
     / fret
     / rest
     / block
@@ -84,6 +85,15 @@ stringChange
             type: 'StringChange',
             value: makeInt(myVar)
         };
+    }
+
+technique
+    = _ myVar:["h""p""s""t"] _ 
+    {
+        return {
+            type: 'Technique',
+            value: myVar
+        }
     }
 
 fret
