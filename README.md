@@ -1,5 +1,5 @@
 # NoodleTab
-A Javascript module for making guitar and bass tabs using a shorthand notation.
+A Javascript module for making guitar and bass tabs using a shorthand notation.  
 
 ## Building
 This step is only necessary if you want to change the grammar.
@@ -15,15 +15,13 @@ This should create a new file ./src/noodle-parser.js
 
 ## API
 
-### NoodleTab(config)
-Constructs a new instance with an optional configuration object.  
-
-### makeTab(startPhrase, phrases)
+### makeTab(start, phrases, [format])
 Parses a set of phrases and returns a string containing the tab starting from the specified start phrase.
 
 - #### Parameters
     - startPhrase: A string containing the name of a phrase to start from.
     - phrases: An object where each key is the id of a phrase and each value is a string representing the phrase in shorthand notation.
+    - format: optional config object with values that control tab formatting
 
 ## Grammar
 NoodleTab uses the following symbols in its phrase notation. Symbols can be separated with spaces, tabs, or newlines.
