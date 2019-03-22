@@ -1,15 +1,12 @@
 var NoodleTab = require("../src/noodle-tab.js");
 
 var format = {
-	lineWidth: 68,
-	noteSpacing: 4,
-	barSpacing: 2
+	lineWidth: 36,
+	noteSpacing: 2
 };
 
 var phrases = {
-	A: "3: 0 5: 3 2: 1 3: 2 0 5: 3",
-	B: "3: 0 4: 3 | 2 2 3 3: 0 5: 3 4: 0",
-	start: "@A @B 4:2 - @A @B 5: 3"
+	start: "6:5 p3 h5 5:3 6:5 5:3 h5 p3 h5 s7"
 };
 
 var output = NoodleTab.makeTab('start', phrases, format);

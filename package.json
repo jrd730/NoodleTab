@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "pegjs ./noodle-parser.pegjs",
+    "build": "pegjs ./src/noodle-parser.pegjs",
     "test": "node ./test/parser-tests.js"
   },
   "author": "",
