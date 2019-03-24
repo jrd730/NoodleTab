@@ -1,11 +1,12 @@
 var Parser = require("./noodle-parser.js");
 
 var format = {
+    autoWidth: true,
 	lineWidth: 64,
 	lineCount: 6,
 	noteSpacing: 4,
 	barSpacing: 2,
-	openTunings: ["E", "A", "D", "G", "B", "E"],
+    openTunings: ["E", "A", "D", "G", "B", "E"]
 }
 
 var phrases = {};
@@ -29,9 +30,12 @@ function makeTab(startPhraseId, newPhrases, newFormat)
 		var sequence = phrases[phraseId];
 		console.log(JSON.stringify(sequence));
 		overlaySequence(sequence, lineBlocks, printPos);
-		return lineBlocks.map((block) => { 
-			return block.map((line, index) => {
-				return `${format.openTunings[ format.lineCount - index - 1 ]}|${line}|`;
+		return lineBlocks.map((block, blockNum) => { 
+			return block.map((line, lineNum) => {
+                if (format.autoWidth === true && blockNum === printPos.block){
+                    line = line.substr(0, printPos.column);
+                }
+                return `${format.openTunings[ format.lineCount - lineNum - 1 ]}|${line}|`;
 			}).join('\n')
 		}).join('\n\n\n');
 	}

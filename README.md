@@ -1,6 +1,29 @@
 # NoodleTab
 A Javascript module for making guitar and bass tabs using a shorthand notation.  
 
+## Usage
+
+
+```
+var NoodleTab = require("../src/noodle-tab.js");
+
+var phrases = {
+	start: "5: 5 7 8 4: 5 5: 7 - 6: 8 5: 5 - 54650# -"
+};
+
+var output = NoodleTab.makeTab('start', phrases);
+console.log(output);
+```
+```
+E|--------------------------------------0-------|
+B|--------------------------------------5-------|
+G|--------------------------------------6-------|
+D|--------------5-----------------------4-------|
+A|--5---7---8-------7-----------5-------5-------|
+E|--------------------------8-------------------|
+
+```
+
 ## Building
 This step is only necessary if you want to change the grammar.
 To rebuild the parser make sure you have Pegjs installed.
