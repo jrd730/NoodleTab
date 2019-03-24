@@ -31,16 +31,36 @@ listItem
     / bar
 
 sequence
-    = "[" _ myList:list _ "]" repeat:repeater? _ addItem:("+" _ sequence _)?
+    = "[" _ myList:list _ "]" stringShift:stringShift? fretShift:fretShift? repeat:repeater? _ addItem:("+" _ sequence _)?
     {
         return {
             type: "Sequence",
             value: myList,
+            stringShift: stringShift,
+            fretShift: fretShift,
             repeat: repeat,
             next: (addItem != null)? addItem[2] : null
         }
     }
-    
+
+stringShift
+    = "^"shiftAmt:shiftAmount
+    {
+        return shiftAmt;
+    }
+
+fretShift
+    = ">"shiftAmt:shiftAmount
+    {
+        return shiftAmt;
+    }
+
+shiftAmount
+    = "-"?[1-9]+
+    {
+        return parseInt(text());
+    }
+
 repeater
     = "*"repeat:[1-9]+
     {

@@ -3,7 +3,6 @@ A Javascript module for making guitar and bass tabs using a shorthand notation.
 
 ## Usage
 
-
 ```
 var NoodleTab = require("../src/noodle-tab.js");
 
@@ -44,7 +43,7 @@ Parses a set of phrases and returns a string containing the tab starting from th
 - #### Parameters
     - startPhrase: A string containing the name of a phrase to start from.
     - phrases: An object where each key is the id of a phrase and each value is a string representing the phrase in shorthand notation.
-    - format: optional config object with values that control tab formatting
+    - format: Optional config object with values that control tab formatting
 
 ## Grammar
 NoodleTab uses the following symbols in its phrase notation. Symbols can be separated with spaces, tabs, or newlines.
@@ -60,12 +59,12 @@ _\<int>_\#|Specifies a chord using the digits of the integer as frets ending on 
 \,|Starts a new block below the current one.
 \@_\<string>_|Specifies a phrase with the given id. Phrases cannot contain circular references.
 \[_\<string>_]|Specifies a bracketed sequence containing combinations of the aforementioned symbols.
+\^_\<int>_|Can be placed immediately after a bracketed sequence to shift the string of each note in the sequence.
+\>_\<int>_|Can be placed immediately after a bracketed sequence to shift the fret of each note in the sequence.
 \*_\<int>_|Can be placed immediately after a bracketed sequence to repeat it the given number of times.
 \+|Can be place between two bracketed sequences to have them be superimposed.
 
 ## Todo
-* add operators for transposition
-* add support for technique symbols (hammer-ons, slides, pull-offs)
 * add support for annotations (lyrics, chord names)
 * output to svg or canvas
 
