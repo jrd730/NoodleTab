@@ -31,7 +31,7 @@ function makeTab(startPhraseId, newPhrases, newFormat)
         }
 
         var sequence = phrases[phraseId];
-        console.log(JSON.stringify(sequence));
+        // console.log(JSON.stringify(sequence, null, 2));
         overlaySequence(sequence, lineBlocks, printPos);
         return lineBlocks.map((block, blockNum) => {
             return block.map((line, lineNum) => {
@@ -78,20 +78,10 @@ function overlaySequence(sequence, lineBlocks, printPos)
                 overlaySequence(phrases[item.value], lineBlocks, printPos);
             break;
             case 'ChordHigh':
-                if (item.value.length > format.lineCount)
-                    throw `Error: Too many strings in chord: ${item.value.join('')}`;
-                item.value.forEach((fret, index) => {
-                    printPosCopy.string = item.value.length - index - 1;
-                    printSymbol(lineBlocks, printPosCopy, fret);
-                });
+                printChord(lineBlocks, printPosCopy, item.value, item.value.length - 1)
             break;
             case 'ChordLow':
-                if (item.value.length > format.lineCount)
-                    throw `Error: Too many strings in chord: ${item.value.join('')}`;
-                item.value.forEach((fret, index) => {
-                    printPosCopy.string = format.lineCount - index - 1;
-                    printSymbol(lineBlocks, printPosCopy, fret);
-                });
+                printChord(lineBlocks, printPosCopy, item.value, format.lineCount - 1)
             break;
             case 'StringChange':
                 let stringNum = item.value + printPos.stringShift;
@@ -106,7 +96,7 @@ function overlaySequence(sequence, lineBlocks, printPos)
                 let fret = item.value + printPos.fretShift;
                 if (fret < 0)
                     throw `Error: Fret number must be greater than or equal to 0.`
-                printSymbol(lineBlocks, printPos, fret.toString());
+                printSymbol(lineBlocks, printPosCopy, fret.toString());
             break;
             case 'Bar':
                 if (printPos.column > format.barSpacing){
@@ -146,12 +136,31 @@ function printSymbol(lineBlocks, printPos, symbol)
 {
     if (printPos.block < 0 || printPos.block >= lineBlocks.length)
         return;
+    if (printPos.string < 0 ||  printPos.string >= format.lineCount){
+        return;
+    }
     var str = lineBlocks[printPos.block][printPos.string];
     lineBlocks[printPos.block][printPos.string] =
             str.slice(0, printPos.column)
             + symbol.toString()
-            + str.slice(printPos.column + symbol.length, str.length);
+            + str.slice(printPos.column + symbol.length);
+}
 
+function printChord(lineBlocks, printPos, chord, startString)
+{
+    if (chord.length > format.lineCount)
+        throw `Error: Too many strings in chord: ${item.value.join('')}`;
+    chord.forEach((fret, index) => {
+        printPos.string = startString - index;
+        if (printPos.stringShift){
+            printPos.string += printPos.stringShift;
+        }
+        var fretSymbol = fret;
+        if (printPos.fretShift){
+            fretSymbol = parseInt(fret) + parseInt(printPos.fretShift);
+        }
+        printSymbol(lineBlocks, printPos, fretSymbol.toString());
+    });
 }
 
 module.exports = {

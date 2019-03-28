@@ -81,7 +81,7 @@ phraseId
     }
 
 chordHigh
-    = _ myVar:[0-9|"x"]+ "#" _ 
+    = _ myVar:[0-9"x"]+ "#" _ 
     {
         return {
             type: 'ChordHigh',
@@ -90,7 +90,7 @@ chordHigh
     }
 
 chordLow
-    = _ "#" myVar:[0-9|"x"]+ _ 
+    = _ "#" myVar:[0-9"x"]+ _ 
     {
         return {
             type: 'ChordLow',
