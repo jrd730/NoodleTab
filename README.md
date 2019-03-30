@@ -44,6 +44,12 @@ Parses a set of phrases and returns a string containing the tab starting from th
     - startPhrase: A string containing the name of a phrase to start from.
     - phrases: An object where each key is the id of a phrase and each value is a string representing the phrase in shorthand notation.
     - format: Optional config object with values that control tab formatting
+        - autoWidth: if true the last block will be truncated
+        - lineWidth: the number of dashes in each tab line
+        - noteSpacing: the number of dashes between each note
+        - barSpacing:  the number of dashes to put after a bar
+        - lineCount: the number of tab lines in each block
+        - openTunings: an array of strings to specify the tuning of each string 
 
 ## Grammar
 NoodleTab uses the following symbols in its phrase notation. Symbols can be separated with spaces, tabs, or newlines.
