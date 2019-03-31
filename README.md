@@ -72,6 +72,7 @@ _\<int>_\#|Specifies a chord using the digits of the integer as frets ending on 
 
 ## Todo
 * add support for annotations (lyrics, chord names)
+* add chords diagrams
 * output to svg or canvas
 
 ## License
