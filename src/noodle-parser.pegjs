@@ -20,6 +20,7 @@ list
 
 listItem
     = sequence
+    / annotation
     / phraseId
     / chordHigh
     / chordLow
@@ -65,6 +66,15 @@ repeater
     = "*"repeat:[1-9]+
     {
         return parseInt(makeInt(repeat));
+    }
+
+annotation
+    = "{" text:[a-zA-Z0-9_#" "]* "}"
+    {
+        return {
+            type: "Annotation",
+            value: text.join('')
+        }
     }
 
 phraseId
