@@ -6,6 +6,7 @@ var format = {
     lineCount: 6,
     noteSpacing: 4,
     barSpacing: 2,
+    annoPadding: 1,
     openTunings: ["E", "A", "D", "G", "B", "E"]
 }
 
@@ -38,7 +39,13 @@ function makeTab(startPhraseId, newPhrases, newFormat)
                 if (format.autoWidth === true && blockNum === printPos.block){
                     line = line.substr(0, printPos.column);
                 }
-                return `${format.openTunings[ format.lineCount - lineNum - 1 ]}|${line}|`;
+                if (lineNum > 0) {
+                    return `${format.openTunings[ format.lineCount - lineNum  ]}|${line}|`;
+                }
+                else {
+                    return " ".repeat(format.annoPadding + 1) + line;
+                }
+
             }).join('\n')
         }).join('\n\n\n');
     }
@@ -72,22 +79,26 @@ function overlaySequence(sequence, lineBlocks, printPos)
                 if (item.fretShift) printPos.fretShift -= item.fretShift;
 
             break;
+            case 'Annotation':
+                printPosCopy.string = 0;
+                printSymbol(lineBlocks, printPosCopy, item.value);
+            break;
             case 'PhraseId':
                 if (!phrases.hasOwnProperty(item.value))
                     throw `Error: Phrase not defined: ${item.value}`;
                 overlaySequence(phrases[item.value], lineBlocks, printPos);
             break;
             case 'ChordHigh':
-                printChord(lineBlocks, printPosCopy, item.value, item.value.length - 1)
+                printChord(lineBlocks, printPosCopy, item.value, item.value.length)
             break;
             case 'ChordLow':
-                printChord(lineBlocks, printPosCopy, item.value, format.lineCount - 1)
+                printChord(lineBlocks, printPosCopy, item.value, format.lineCount)
             break;
             case 'StringChange':
                 let stringNum = item.value + printPos.stringShift;
                 if (stringNum < 1 || stringNum > format.lineCount)
                     throw `Error: Line number out of bounds, must be between 1 and ${format.lineCount} inclusive.`;
-                printPos.string = stringNum-1;
+                printPos.string = stringNum;
             break;
             case 'Technique':
                 printSymbol(lineBlocks, printPosCopy, item.value.toString());
@@ -100,7 +111,7 @@ function overlaySequence(sequence, lineBlocks, printPos)
             break;
             case 'Bar':
                 if (printPos.column > format.barSpacing){
-                    for (let i = 0; i < format.lineCount; i++){
+                    for (let i = 1; i <= format.lineCount; i++){
                         printPosCopy.string = i;
                         printSymbol(lineBlocks, printPosCopy, '|');
                     }
@@ -108,7 +119,7 @@ function overlaySequence(sequence, lineBlocks, printPos)
             break;
         }
 
-        if (item.type != 'Sequence' && item.type != 'Block' && item.type != 'StringChange' && item.type != 'PhraseId'){
+        if (item.type != 'Annotation' && item.type != 'Sequence' && item.type != 'Block' && item.type != 'StringChange' && item.type != 'PhraseId'){
             printPos.column += format.noteSpacing;
         }
     });
@@ -129,16 +140,16 @@ function makeLineBlock()
     var lines = new Array(format.lineCount);
     var tabLine = "-".repeat(format.lineWidth);
     lines.fill(tabLine);
-    return lines;
+    return [" ".repeat(format.lineWidth)].concat(lines);
 }
 
 function printSymbol(lineBlocks, printPos, symbol)
 {
     if (printPos.block < 0 || printPos.block >= lineBlocks.length)
         return;
-    if (printPos.string < 0 ||  printPos.string >= format.lineCount){
+    if (printPos.string < 0 ||  printPos.string > format.lineCount)
         return;
-    }
+        
     var str = lineBlocks[printPos.block][printPos.string];
     lineBlocks[printPos.block][printPos.string] =
             str.slice(0, printPos.column)
@@ -159,7 +170,9 @@ function printChord(lineBlocks, printPos, chord, startString)
         if (printPos.fretShift){
             fretSymbol = parseInt(fret) + parseInt(printPos.fretShift);
         }
-        printSymbol(lineBlocks, printPos, fretSymbol.toString());
+        if (printPos.string > 0){
+            printSymbol(lineBlocks, printPos, fretSymbol.toString());
+        }
     });
 }
 
