@@ -63,15 +63,15 @@ _\<int>_\#|Specifies a chord using the digits of the integer as frets ending on 
 \-|Specifies a rest at the current column which creates space between notes.
 \||Specifies a measure bar to be printed at the current column
 \,|Starts a new block below the current one.
+\{_\<string>_\}|Prints an annotation above the tab at the current column.
 \@_\<string>_|Specifies a phrase with the given id. Phrases cannot contain circular references.
 \[_\<string>_]|Specifies a bracketed sequence containing combinations of the aforementioned symbols.
 \^_\<int>_|Can be placed immediately after a bracketed sequence to shift the string of each note in the sequence.
 \>_\<int>_|Can be placed immediately after a bracketed sequence to shift the fret of each note in the sequence.
 \*_\<int>_|Can be placed immediately after a bracketed sequence to repeat it the given number of times.
-\+|Can be place between two bracketed sequences to have them be superimposed.
+\+|Can be placed between two bracketed sequences to have them be superimposed.
 
 ## Todo
-* add support for annotations (lyrics, chord names)
 * add chords diagrams
 * output to svg or canvas
 
