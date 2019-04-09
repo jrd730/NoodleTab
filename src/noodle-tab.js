@@ -18,37 +18,37 @@ function makeTab(startPhraseId, newPhrases, newFormat)
         Object.assign(format, newFormat);
     }
 
-    if (newPhrases != null)
-    {
+    if (newPhrases != null) {
         parsePhrases(newPhrases);
-        var phraseId = (startPhraseId || 'start');
-        var lineBlocks = [makeLineBlock()];
-        var printPos = {
-            block: 0,
-            string: 0,
-            column: format.barSpacing,
-            stringShift: 0,
-            fretShift: 0
-        }
-
-        var sequence = phrases[phraseId];
-        // console.log(JSON.stringify(sequence, null, 2));
-        overlaySequence(sequence, lineBlocks, printPos);
-        return lineBlocks.map((block, blockNum) => {
-            return block.map((line, lineNum) => {
-                if (format.autoWidth === true && blockNum === printPos.block){
-                    line = line.substr(0, printPos.column);
-                }
-                if (lineNum > 0) {
-                    return `${format.openTunings[ format.lineCount - lineNum  ]}|${line}|`;
-                }
-                else {
-                    return " ".repeat(format.annoPadding + 1) + line;
-                }
-
-            }).join('\n')
-        }).join('\n\n\n');
     }
+
+    var phraseId = (startPhraseId || 'start');
+    var lineBlocks = [makeLineBlock()];
+    var printPos = {
+        block: 0,
+        string: 0,
+        column: format.barSpacing,
+        stringShift: 0,
+        fretShift: 0
+    }
+
+    var sequence = phrases[phraseId];
+    // console.log(JSON.stringify(sequence, null, 2));
+    overlaySequence(sequence, lineBlocks, printPos);
+    return lineBlocks.map((block, blockNum) => {
+        return block.map((line, lineNum) => {
+            if (format.autoWidth === true && blockNum === printPos.block){
+                line = line.substr(0, printPos.column);
+            }
+            if (lineNum > 0) {
+                return `${format.openTunings[ format.lineCount - lineNum  ]}|${line}|`;
+            }
+            else {
+                return " ".repeat(format.annoPadding + 1) + line;
+            }
+
+        }).join('\n')
+    }).join('\n\n\n');
 }
 
 function overlaySequence(sequence, lineBlocks, printPos)
@@ -162,16 +162,18 @@ function printChord(lineBlocks, printPos, chord, startString)
     if (chord.length > format.lineCount)
         throw `Error: Too many strings in chord: ${item.value.join('')}`;
     chord.forEach((fret, index) => {
-        printPos.string = startString - index;
-        if (printPos.stringShift){
-            printPos.string += printPos.stringShift;
-        }
-        var fretSymbol = fret;
-        if (printPos.fretShift){
-            fretSymbol = parseInt(fret) + parseInt(printPos.fretShift);
-        }
-        if (printPos.string > 0){
-            printSymbol(lineBlocks, printPos, fretSymbol.toString());
+        if (fret.toLowerCase() !==  'x'){
+            printPos.string = startString - index;
+            if (printPos.stringShift){
+                printPos.string += printPos.stringShift;
+            }
+            var fretSymbol = fret;
+            if (printPos.fretShift){
+                fretSymbol = parseInt(fret) + parseInt(printPos.fretShift);
+            }
+            if (printPos.string > 0){
+                printSymbol(lineBlocks, printPos, fretSymbol.toString());
+            }
         }
     });
 }
