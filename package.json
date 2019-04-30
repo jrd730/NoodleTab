@@ -11,5 +11,6 @@
     "test": "node ./test/parser-tests.js"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {}
 }
