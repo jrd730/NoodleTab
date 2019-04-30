@@ -8,9 +8,14 @@
   },
   "scripts": {
     "build": "pegjs ./src/noodle-parser.pegjs",
+    "bundle": "rollup -c",
     "test": "node ./test/parser-tests.js"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "rollup": "^1.10.1",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.2.3"
+  }
 }
