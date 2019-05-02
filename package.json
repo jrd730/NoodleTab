@@ -9,9 +9,9 @@
   "scripts": {
     "build": "pegjs ./src/noodle-parser.pegjs",
     "bundle": "rollup -c",
-    "test": "node ./test/parser-tests.js && mocha"
+    "test": "mocha"
   },
-  "author": "",
+  "author": "Jason Dietrich",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
