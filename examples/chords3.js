@@ -6,4 +6,4 @@ var phrases = {
 };
 
 var output = NoodleTab.makeTab('start', phrases);
-console.log(output);
+module.exports = output;

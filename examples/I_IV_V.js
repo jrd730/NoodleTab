@@ -12,4 +12,4 @@ var phrases = {
 };
 
 var output = NoodleTab.makeTab('start', phrases, format);
-console.log(output);
+module.exports = output;
